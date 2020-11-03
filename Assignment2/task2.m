@@ -30,7 +30,7 @@ y2 = w2 * x2;
 figure
 plot(x1, y1, 'blue');
 hold on
-plot(x1,turkish_subset1(:,2),'xr');
+plot(x,turkish(:,2),'xr');
 xlabel('x');
 ylabel('t');
 title('Linear Regression for turkish subset1 (without interception)')
@@ -38,7 +38,7 @@ title('Linear Regression for turkish subset1 (without interception)')
 figure
 plot(x2, y2, 'blue');
 hold on
-plot(x2,turkish_subset2(:,2),'xr');
+plot(x,turkish(:,2),'xr');
 xlabel('x');
 ylabel('t');
 title('Linear Regression for turkish subset2 (without interception)')
