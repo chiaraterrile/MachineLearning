@@ -1,4 +1,5 @@
 function [subset_5,subset_95] = subsetCreator(set)
+%ciaociao
 [r,c] = size(set);
 r_5 = round(r *0.05);
 rand_number =randi([1, (r - r_5)]);
