@@ -1,9 +1,10 @@
 function [] = task2(turkish,mtcars)
 %2.1 and 2.2
 [r,c] = size (turkish);
+
 %applying the regression to the whole set
-flag_turkish = 0;
-[w,x]= oneDimRegression(turkish,flag_turkish);
+
+[w,x]= oneDimRegression(turkish,0);
 y = w * x ;
 
 figure
@@ -14,6 +15,7 @@ xlabel('x');
 ylabel('t');
 title('Linear Regression for for the whole turkish set (without interception)')
 
+%computing and plotting random samples of 10% of the entire set
 row_Sub = round(r *0.1);
 
 randomPlot (turkish,row_Sub);
@@ -22,9 +24,9 @@ randomPlot (turkish,row_Sub);
 
 turkish_subset1 = turkish(1:row_Sub, :);
 turkish_subset2 = turkish((r - row_Sub+1) : r ,:);
-[w1,x1]= oneDimRegression(turkish_subset1,flag_turkish);
+[w1,x1]= oneDimRegression(turkish_subset1,0);
 y1 = w1 * x1;
-[w2,x2]= oneDimRegression(turkish_subset2,flag_turkish);
+[w2,x2]= oneDimRegression(turkish_subset2,0);
 y2 = w2 * x2;
 
 figure
@@ -43,7 +45,7 @@ xlabel('x');
 ylabel('t');
 title('Linear Regression for turkish subset2 (without interception)')
 
-
+%comparison of the two subset (first 10% and last 10%)
 figure
 plot(x1, y1, 'blue');
 hold on
@@ -71,9 +73,30 @@ title('Linear Regression for mtcars (with interception)')
 mtcars_set_multivar = [ mtcars(:,2) mtcars(:,3) mtcars(:,4)  mtcars(:,1)] ;
 [w4,x4] = multivarRegression (mtcars_set_multivar);
 y4 =x4 * w4;
-% figure
-% plot(x4(1), y4);
-% xlabel('x');
-% ylabel('t');
-% title('Linear Regression for mtcars multivariable')
+
+figure
+subplot(1,2,1)
+scatter3(x4(:,1),x4(:,2),x4(:,3),75,mtcars_set_multivar(:,4),'filled');
+colormap spring
+xlabel('disp');
+ylabel('hp');
+zlabel('weigh');
+title('Linear Regression for mtcars multivariable (real values)')
+shading interp
+c = colorbar;
+c.Label.String = 'target (mpg)';
+c.Label.FontSize = 12;
+
+subplot(1,2,2)
+scatter3(x4(:,1),x4(:,2),x4(:,3),75,y4,'filled');
+colormap spring
+xlabel('disp');
+ylabel('hp');
+zlabel('weigh');
+title('Linear Regression for mtcars multivariable (predicted values)')
+shading interp
+c = colorbar;
+c.Label.String = 'y (predicted)';
+c.Label.FontSize = 12;
+
 end
