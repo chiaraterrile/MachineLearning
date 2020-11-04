@@ -20,10 +20,10 @@ y1 = w1 * x1 ;
 % title(str)
 
 
-%regression without interception (point 2.3)
+%regression with interception (point 2.3)
 
-set2_new = set2(:, [1, c2]);
-set2_new =[ set2_new(:,2) set2_new(:,1)] ;
+set2_new =[ set2(:,2) set2(:,1)] ;
+
 [w2,x2]= oneDimRegression(set2_new,1);
 y2 = w2(2)*x2+w2(1);
 

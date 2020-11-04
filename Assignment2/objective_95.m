@@ -22,8 +22,7 @@ y1 = w1 * x1 ;
 % title(str)
 
 
-set2_new = set2(:, [1, c2]);
-set2_new =[ set2_new(:,2) set2_new(:,1)] ;
+set2_new =[ set2(:,2) set2(:,1)] ;
 x2 = set2_new(:,1);
 y2 = w2(2)*x2+w2(1);
 

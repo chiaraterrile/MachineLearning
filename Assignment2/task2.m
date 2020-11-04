@@ -6,7 +6,6 @@ function [] = task2(turkish,mtcars)
 
 [w,x]= oneDimRegression(turkish,0);
 y = w * x ;
-
 figure
 plot(x, y, 'blue');
 hold on
