@@ -22,7 +22,7 @@ y1 = w1 * x1 ;
 
 %regression with interception (point 2.3)
 
-set2_new =[ set2(:,2) set2(:,1)] ;
+set2_new =[ set2(:,4) set2(:,1)] ;
 
 [w2,x2]= oneDimRegression(set2_new,1);
 y2 = w2(2)*x2+w2(1);
