@@ -1,4 +1,4 @@
-function [y]=kNN_Classifier(X_Training,T_Training,X_Test,k,T_Test)
+function [y,error_rate]=kNN_Classifier(X_Training,T_Training,X_Test,k,T_Test)
 [n,d] = size(X_Training);
 m = size(X_Test,1); 
 %controls on the input values
