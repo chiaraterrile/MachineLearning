@@ -1,4 +1,4 @@
-function [y]=kNN_Classifier(X_Training,T_Training,X_Test,k,T_test)
+function [y]=kNN_Classifier(X_Training,T_Training,X_Test,k,T_Test)
 [n,d] = size(X_Training);
 m = size(X_Test,1); 
 %controls on the input values
@@ -30,6 +30,15 @@ end
      y(z,1) = mode (k_label);
     end
 
-
+if nargin == 5
+    count_err = 0;
+    for i = 1 : m
+        if y(i,1) ~= T_Test(i,1)
+            count_err = count_err + 1 ;
+        end
+    end
+    error_rate = count_err/m;
+    fprintf('The error rate is %d \n',error_rate);
+end
 
 end
