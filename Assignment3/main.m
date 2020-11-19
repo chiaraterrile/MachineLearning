@@ -13,10 +13,10 @@ close all
 % T_Training = [ 0 1 3 5 0 3 0 4 7 9 10 3 4 2 2 8 6 5 ]';
 % T_Test = [1 2 4 5 2 7 8 9 10 0 2 6 7]';
 %% Task 2 : Build a kNN classifier
-[y]=kNN_Classifier(X_Training,T_Training,X_Test,3,T_Test);
+% [y]=kNN_Classifier(X_Training,T_Training,X_Test,3,T_Test);
 %[y]=kNN_Classifier(X_Training,T_Training,X_Test,3);
 
 %% Task 3:Test the kNN classifier
 
 [T_Training,T_Test] = TaskCreator(T_Training,T_Test,0);
-
+[y]=kNN_Classifier(X_Training,T_Training,X_Test,3,T_Test);
