@@ -6,27 +6,33 @@ clear all
 close all
 [X_Training,T_Training]= loadMNIST(0);
 [X_Test,T_Test]= loadMNIST(1);
-% X_Training=gpuArray(X_Training);
-% X_Test=gpuArray(X_Test);
-% T_Training = gpuArray(T_Training);
-% T_Test = gpuArray(T_Test);
 
- X_Training=X_Training(1:2000,:);
- X_Test=X_Test(1:1000,:);
- T_Training = T_Training(1:2000,:);
- T_Test = T_Test(1:1000,:);
+  X_Training=X_Training(1:1000,:);
+  X_Test=X_Test(1:5000,:);
+  T_Training = T_Training(1:1000,:);
+  T_Test = T_Test(1:5000,:);
+
+%  X_Training=X_Training(1:2000,:);
+%  X_Test=X_Test(1:1000,:);
+%  T_Training = T_Training(1:2000,:);
+%  T_Test = T_Test(1:1000,:);
+
+%  X_Training=X_Training(1:4000,:);
+%  X_Test=X_Test(1:2000,:);
+%  T_Training = T_Training(1:4000,:);
+%  T_Test = T_Test(1:2000,:);
+
  
-% X_Training = [ 3 5 9 1; 6 2 9 5 ; 6 2 4  3; 9 2 2 1; 8 7 8 3; 1 4 2 7 ];
-% T_Training = [ 1 3 2 1 1 3]';
-% X_Test=[ 6 2 9 5 ;1 4 2 7  ;6 2 9 5];
-% T_Test=[1,3,1]';
-% T_Training = [ 0 1 3 5 0 3 0 4 7 9 10 3 4 2 2 8 6 5 ]';
-% T_Test = [1 2 4 5 2 7 8 9 10 0 2 6 7]';
 %% Task 2 : Build a kNN classifier
-% [y]=kNN_Classifier(X_Training,T_Training,X_Test,3,T_Test);
+
+%To try the classifier with or without the target in the test
+%[y]=kNN_Classifier(X_Training,T_Training,X_Test,3,T_Test);
 %[y]=kNN_Classifier(X_Training,T_Training,X_Test,3);
+
+%If you want to show a certain row of the X_Training or of the X_Test
 %  reshape(X_Training(1,:), 28, 28);
 %  imshow(reshape(X_Test(1,:), 28, 28))
+
 %% Task 3:Test the kNN classifier
   accuracy=[];
   k = [1,2,3,4,5,10,15,20,30,40,50]';
