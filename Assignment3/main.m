@@ -36,7 +36,7 @@ close all
 %% Task 3:Test the kNN classifier
   accuracy=[];
   k = [1,2,3,4,5,10,15,20,30,40,50]';
-  
+  %compute the accuracy for 10 different tasks
   for i= 1 : size(k) %dim di k
       for j= 1 :10 %digits
   [T_Training_new,T_Test_new] = TaskCreator(T_Training,T_Test,j);

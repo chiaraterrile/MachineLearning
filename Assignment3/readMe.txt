@@ -1,6 +1,6 @@
 Assignment 3 of Machine Learning
 
- Because of the size of the two matrices X_Training and X_Test, it has been necessary to reduce them because the times of execution were too long (and by consequence also the target matrices).
+ Because of the size of the two matrices X_Training and X_Test(and by consequence also the target matrices), it has been necessary to reduce them because the execution time was too long.
  We have tried different formats of the matrices, which are commented in the main file in order to try them.
  We have tried these combinations of n and m :
 	- 1000 and 500

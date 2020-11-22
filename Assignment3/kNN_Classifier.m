@@ -11,6 +11,7 @@ end
 if k<0 || k >= n
     error (' the k value is not valid');
 end
+%kNN classifier
     y = zeros(m,1);
     for z = 1 : m
     distances = zeros(n,1);
@@ -29,7 +30,7 @@ end
      k_label = T_Training(k_index);
      y(z,1) = mode (k_label);
     end
-
+%if the test set is available we use it to compute the error rate of the classifier 
 if nargin == 5
     count_err = 0;
     for i = 1 : m
