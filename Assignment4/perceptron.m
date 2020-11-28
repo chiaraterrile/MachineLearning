@@ -21,7 +21,7 @@ for l = 1:n
 %     neww(l) = [w(1,l); -teta];
 %     r(l) = newx + neww;
 %     a(l) = sign(r(l));
-r(l) = w(l)*x(l,:);
+r(l) = w(l)*x(l,:);%sSBAGLIATO SECONDO ME 
 a(l) = sign(r(l));
 delta = 0.5*(t(l)-a(l));
 dw = eta *delta*x(l,:);
@@ -51,19 +51,19 @@ end
             TestSet = x(i,:);
             %faccio il train rispetto a questi dati.. dove mi fermo? 
             for l = 1:n-1
-            target = t;
-            target(idx,:)=[];
+                target = t;
+                target(idx,:)=[];
             
-            r(l) = w(l)*X(l,:);
-            a(l) = sign(r(l));
-            delta = 0.5*(target(l)-a(l));
-            dw = eta *delta*X(l,:);
-            w(l) = w(l) + dw;
+                r = w*X(l,:);
+                a = sign(r);
+                delta = 0.5*(target(l)-a);
+                dw = eta *delta*X(l,:);
+                w = w + dw;
             end
-            %calcolo R(TestSet)
+             %calcolo R(TestSet)
 
         end
-        %Train final learning machine M on X?????
+        
  end
  
     
