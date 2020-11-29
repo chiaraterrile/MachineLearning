@@ -15,18 +15,10 @@ theta = 0.001; %threshold
 r = [];
 a = [];
 X = [];
-%non dobbiamo stopparci a n
-for l = 1:n
-%     newx(l) = [x(l,:),1];
-%     neww(l) = [w(1,l); -teta];
-%     r(l) = newx + neww;
-%     a(l) = sign(r(l));
-r(l) = w(l)*x(l,:);%sSBAGLIATO SECONDO ME 
-a(l) = sign(r(l));
-delta = 0.5*(t(l)-a(l));
-dw = eta *delta*x(l,:);
-w(l) = w(l) + dw;
-end
+counter_error = 0;
+error = 1;
+n_iter = 0;
+
  % bisogna capire cosa fare con a e r una volta finito il for e cosa
  % centrano con la confusion matrix
  if nargin == 3
@@ -38,33 +30,106 @@ end
          half =floor( n/2) ;
          training_set = data_set(1:half, :);
          test_set = data_set(half+1 : 2*half,:);
+         x_training = training_set( :,1:d);
+         t_training = training_set( :,g);
+         x_test = test_set( :,1:d);
+         t_test = test_set( :,g);
+         
+         while error ~= 0 || n_iter < 100000
+            
+            for l = 1:half
+                
+                r = x_training(l,:)*w;
+                a = sign(r);
+                delta = 0.5*(t_training(l)-a);
+                dw = eta *delta*x_training(l,:)';
+                w = w + dw;
+                
+                newr = x_test * w;
+                newa= sign(newr);
+                if x_test(l) ~= newa
+                    count_error = count_error + 1 ;
+                end
+            end
+            error = count_error/(n-1);
+            n_iter = n_iter +1;
+            
+            end
      end
      
      if k == n % leave-one-out cross validation
          %slides pag 16 (blocco6)
          %tolgo sempre una riga a ogni giro
         for i = 1:n
-            idx=i;
-            X == x;
+            X = x;
+            target = t;
             %new training ad test sets
-            X(idx,:)=[];
+            X(i,:)=[];
             TestSet = x(i,:);
-            %faccio il train rispetto a questi dati.. dove mi fermo? 
-            for l = 1:n-1
-                target = t;
-                target(idx,:)=[];
             
-                r = w*X(l,:);
+            target(i,:)=[];
+            target_TestSet = t(i,:);
+            while error ~= 0 || n_iter < 100000
+            
+            for l = 1:n-1
+                
+                r = X(l,:)*w;
                 a = sign(r);
                 delta = 0.5*(target(l)-a);
-                dw = eta *delta*X(l,:);
+                dw = eta *delta*X(l,:)';
                 w = w + dw;
+                
+                newr = TestSet * w;
+                newa= sign(newr);
+                if target_TestSet(l) ~= newa
+                    count_error = count_error + 1 ;
+                end
             end
-             %calcolo R(TestSet)
-
+            error = count_error/(n-1);
+            n_iter = n_iter +1;
+            
+            end
+            
+       %calcolo R(TestSet)
+        end
+        
+        if 2 < k < n % leave-one-out cross validation
+         %slides pag 16 (blocco6)
+         %tolgo sempre una riga a ogni giro
+        for i = 1:n
+            X = x;
+            target = t;
+            %new training ad test sets
+            X(i:k,:)=[];
+            TestSet = x(i:k,:);
+            
+            target(i:k,:)=[];
+            target_TestSet = t(i:k,:);
+            while error ~= 0 || n_iter < 100000
+            
+            for l = 1:n-k
+                
+                r = X(l,:)*w;
+                a = sign(r);
+                delta = 0.5*(target(l)-a);
+                dw = eta *delta*X(l,:)';
+                w = w + dw;
+                
+                newr = TestSet * w;
+                newa= sign(newr);
+                if target_TestSet(l) ~= newa
+                    count_error = count_error + 1 ;
+                end
+            end
+            error = count_error/(n-k);
+            n_iter = n_iter +1;
+            
+            end
+            
+       %calcolo R(TestSet)
         end
         
  end
  
-    
+ end   
 end
