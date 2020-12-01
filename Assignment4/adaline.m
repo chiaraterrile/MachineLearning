@@ -1,8 +1,5 @@
 function [confusion_matrix] = adaline(data_set,eta,k)
 
-% NB : per le modifiche vedi il primo algoritmo (caso k == 2)
-
-
 [n,g] = size(data_set); % n is the number of observations
 d = g-1; %number of feautures
  if (eta < 0)
@@ -18,8 +15,8 @@ theta = 0.001; %threshold
 r = [];
 a = [];
 X = [];
-counter_error = 0;
-error = 1;
+count_error = 0;
+errors = 1;
 n_iter = 0;
 
  % bisogna capire cosa fare con a e r una volta finito il for e cosa
@@ -38,26 +35,31 @@ n_iter = 0;
          x_test = test_set( :,1:d);
          t_test = test_set( :,g);
          
-         while error ~= 0 || n_iter < 100000
+         while  ((n_iter < 10000)  && (errors ~= 0))
             
             for l = 1:half
                 
                 r = x_training(l,:)*w;
                 a = sign(r);
-                delta = (t_training(l)-r); % qui è dove ho modificato ed è uguale per tutti i casi
+                delta = (t_training(l)-r);
                 dw = eta *delta*x_training(l,:)';
                 w = w + dw;
-                
+               % disp(w)
                 newr = x_test * w;
                 newa= sign(newr);
-                if x_test(l) ~= newa
+                
+                if t_test(l) ~= newa
                     count_error = count_error + 1 ;
                 end
+                
             end
-            error = count_error/(n-1);
-            n_iter = n_iter +1;
             
-            end
+           
+            n_iter = n_iter +1;
+            errors = count_error/(n_iter*(n-1));
+            %disp (errors)
+            %disp(n_iter);
+         end
      end
      
      if k == n % leave-one-out cross validation
@@ -72,31 +74,31 @@ n_iter = 0;
             
             target(i,:)=[];
             target_TestSet = t(i,:);
-            while error ~= 0 || n_iter < 100000
+           while  ((n_iter < 10000)  && (errors ~= 0))
             
             for l = 1:n-1
                 
                 r = X(l,:)*w;
                 a = sign(r);
-                delta = target(l)-r;
+                delta = (target(l)-r);
                 dw = eta *delta*X(l,:)';
                 w = w + dw;
                 
                 newr = TestSet * w;
                 newa= sign(newr);
-                if target_TestSet(l) ~= newa
+                if target_TestSet(1) ~= newa
                     count_error = count_error + 1 ;
                 end
             end
-            error = count_error/(n-1);
             n_iter = n_iter +1;
+            errors = count_error/(n_iter*(n-1));
             
             end
             
        %calcolo R(TestSet)
         end
-        
-        if 2 < k < n % leave-one-out cross validation
+     end  
+        if k>2 && k<n % leave-one-out cross validation
          %slides pag 16 (blocco6)
          %tolgo sempre una riga a ogni giro
         for i = 1:n
@@ -108,31 +110,66 @@ n_iter = 0;
             
             target(i:k,:)=[];
             target_TestSet = t(i:k,:);
-            while error ~= 0 || n_iter < 100000
+           while  ((n_iter < 10000)  && (errors ~= 0))
             
             for l = 1:n-k
                 
                 r = X(l,:)*w;
                 a = sign(r);
-                delta = target(l)- r;
+                delta = (target(l)-r);
                 dw = eta *delta*X(l,:)';
                 w = w + dw;
                 
                 newr = TestSet * w;
                 newa= sign(newr);
-                if target_TestSet(l) ~= newa
+                for j = 1:size(target_TestSet,2)
+                if target_TestSet(j) ~= newa
                     count_error = count_error + 1 ;
                 end
+                end
             end
-            error = count_error/(n-k);
             n_iter = n_iter +1;
+
+            errors = count_error/(n_iter*(n-1));
             
             end
             
        %calcolo R(TestSet)
         end
         
- end
+        end
  
- end   
+    
+ 
+      count11 = 0;
+      count12 = 0;
+      count22 = 0;
+      count21 = 0;
+     
+      for l = 1:n
+                
+                r = x(l,:)*w;
+                a = sign(r);
+               
+                if t(l) == 1 && a == 1
+                    count11 = count11 + 1 ;
+                
+                elseif t(l) == -1 && a == -1
+                      count22 = count22 + 1 ; 
+                      
+                elseif  t(l) == 1 && a == -1
+                      count12 = count12 + 1 ;
+                      
+                elseif  t(l) == -1 && a == 1
+                      count21 = count21 + 1 ;
+                end
+      end
+     
+%       disp(count11/n)
+%       disp(count12/n)
+%       disp(count21/n)
+%       disp(count22/n)
+      
+      confusion_matrix = [ count11/n count12/n ; count21/n count22/n  ];
+    % confusion_matrix=[];
 end

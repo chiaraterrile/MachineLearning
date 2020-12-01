@@ -1,4 +1,4 @@
-function [prova,confusion_matrix] = perceptron(data_set,eta,k)
+function [confusion_matrix] = perceptron(data_set,eta,k)
 
 [n,g] = size(data_set); % n is the number of observations
 d = g-1; %number of feautures
@@ -57,8 +57,8 @@ n_iter = 0;
            
             n_iter = n_iter +1;
             errors = count_error/(n_iter*(n-1));
-            disp (errors)
-            %disp(n_iter);
+            %disp (errors)
+            disp(n_iter);
          end
      end
      
@@ -145,12 +145,12 @@ n_iter = 0;
       count12 = 0;
       count22 = 0;
       count21 = 0;
-      prova = [];
+     
       for l = 1:n
                 
                 r = x(l,:)*w;
                 a = sign(r);
-                prova(l) = a;
+               
                 if t(l) == 1 && a == 1
                     count11 = count11 + 1 ;
                 
