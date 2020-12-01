@@ -51,8 +51,8 @@ n_iter = 0;
                     count_error = count_error + 1 ;
                 end
             end
-            error = count_error/(n-1);
             n_iter = n_iter +1;
+            error = count_error/(n-1);
             
             end
      end
@@ -85,8 +85,8 @@ n_iter = 0;
                     count_error = count_error + 1 ;
                 end
             end
-            error = count_error/(n-1);
             n_iter = n_iter +1;
+            error = count_error/n_iter(n-1);%SBAGLIATO N-1
             
             end
             
@@ -121,8 +121,9 @@ n_iter = 0;
                     count_error = count_error + 1 ;
                 end
             end
-            error = count_error/(n-k);
             n_iter = n_iter +1;
+
+            error = count_error/n_iter(n-k);
             
             end
             
