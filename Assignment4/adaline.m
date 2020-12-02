@@ -56,7 +56,7 @@ n_iter = 0;
             
            
             n_iter = n_iter +1;
-            errors = count_error/(n_iter*(n-1));
+            errors = count_error/(n_iter*(half));
             %disp (errors)
             %disp(n_iter);
          end
@@ -130,7 +130,7 @@ n_iter = 0;
             end
             n_iter = n_iter +1;
 
-            errors = count_error/(n_iter*(n-1));
+            errors = count_error/(n_iter*(n-k));
             
             end
             
