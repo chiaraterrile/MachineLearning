@@ -145,31 +145,40 @@ n_iter = 0;
       count12 = 0;
       count22 = 0;
       count21 = 0;
+      
+     class1 = t(1); % class 1
+      for j = 1:n
+          if t(j)~= class1 
+             class2 = t(j); % class 2
+          end
+      end
+      
+
      
-      for l = 1:n
+ for l = 1:n
                 
                 r = x(l,:)*w;
                 a = sign(r);
                
-                if t(l) == 1 && a == 1
+                if t(l) == class1  && a == class1
                     count11 = count11 + 1 ;
                 
-                elseif t(l) == -1 && a == -1
+                elseif t(l) == class2 && a == class2
                       count22 = count22 + 1 ; 
                       
-                elseif  t(l) == 1 && a == -1
+                elseif  t(l) == class1 && a == class2
                       count12 = count12 + 1 ;
                       
-                elseif  t(l) == -1 && a == 1
+                elseif  t(l) == class2 && a == class1
                       count21 = count21 + 1 ;
                 end
-      end
+ end
      
 %       disp(count11/n)
 %       disp(count12/n)
 %       disp(count21/n)
 %       disp(count22/n)
       
-      confusion_matrix = [ count11/n count12/n ; count21/n count22/n  ];
+     confusion_matrix = [ (count11/n)*100 (count12/n)*100 ; (count21/n)*100 (count22/n)*100  ]; %the parameters of the confusion matrix are expressed in percentage
     % confusion_matrix=[];
 end
