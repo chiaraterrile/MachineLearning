@@ -3,7 +3,7 @@ close all
 
 load('iris.txt')
 %prova = iris(46:55,:);
-% [confusion_matrix_perceptron] = perceptron(iris,0.1,2);
+ %[confusion_matrix_perceptron] = perceptron(iris,0.1,15);
 % [confusion_matrix_adaline] = adaline(iris,0.001,2);
 % [accuracy,error_rate,sensitivity,specificity,precision]=equality_indexes(confusion_matrix_perceptron);
 %% 
@@ -20,5 +20,5 @@ load('iris.txt')
 load('xor_data.txt')
 
 [confusion_matrix_perceptron] = perceptron(xor_data,0.1,2);
-[confusion_matrix_adaline] = adaline(xor_data,0.001,2);
-[accuracy,error_rate,sensitivity,specificity,precision]=equality_indexes(confusion_matrix_perceptron);
+%[confusion_matrix_adaline] = adaline(xor_data,0.001,2);
+%[accuracy,error_rate,sensitivity,specificity,precision]=equality_indexes(confusion_matrix_perceptron);
