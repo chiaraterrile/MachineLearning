@@ -20,7 +20,7 @@ count_err = 0;
 n_iter = 0;
 err = 1;
 meanMatrix = 0;
-
+min_err = 1;
 %% case k = 2
 
     if k == 2 % split into one training set and one test set of equal size
@@ -32,7 +32,7 @@ meanMatrix = 0;
         x_test = test_set( :,1:d);
         t_test = test_set( :,g);
         
-        while  (n_iter < 10000)  && (err > 0.1)
+        while  (n_iter < 10000)  && (min_err > 0.1)
             
             for j = 1:half
                 
@@ -41,7 +41,7 @@ meanMatrix = 0;
                 delta = (t_training(j)-r);
                 dw = eta *delta*x_training(j,:)';
                 w = w + dw;
-                
+                min_err = immse(t_training(j), r');
             end
             n_iter = n_iter +1;
             if t_training(j) ~= a
@@ -69,7 +69,7 @@ meanMatrix = 0;
             
             target(i,:)=[];
             target_TestSet = t(i,:);
-            while  n_iter < 10000 && (err > 0.1)
+            while  n_iter < 10000 && (min_err > 0.1)
                 
                 for j = 1:n-1
                     
@@ -78,6 +78,7 @@ meanMatrix = 0;
                     delta = (target(j)-r);
                     dw = eta *delta*X(j,:)';
                     w = w + dw;
+                    min_err = immse(target(j), r');
                 end
                 n_iter = n_iter +1;
                 if target(j)~= a
@@ -112,7 +113,7 @@ meanMatrix = 0;
             Ttraining(i:i+round(n/k)-1,:)=[];
             target_TestSet = t(i:i+round(n/k)-1,:);
             
-            while  (n_iter < 10000)   && (err > 0.1)
+            while  (n_iter < 10000)   && (min_err > 0.1)
                 
                 for j = 1:(n-round(n/k))
                     
@@ -121,6 +122,7 @@ meanMatrix = 0;
                     delta = (Ttraining(j)-r);
                     dw = eta *delta*Xtraining(j,:)';
                     w = w + dw;
+                    min_err = immse(Ttraining(j), r');
                 end
                 n_iter = n_iter +1;
                 if Ttraining(j) ~= a

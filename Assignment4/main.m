@@ -11,8 +11,8 @@ dataset = importdata('iris.txt');
 
 index = randperm(size(dataset,1));
 dataset = dataset(index(1:size(dataset,1)),:);
-[confusion_matrix_perceptron,n_iter_perceptron] = perceptron(dataset,0.1,2,1,-1);
-[confusion_matrix_adaline,n_iter_adaline] = adaline(dataset,0.001,2,1,-1);
+[confusion_matrix_perceptron,n_iter_perceptron] = perceptron(dataset,0.1,10,1,-1);
+[confusion_matrix_adaline,n_iter_adaline] = adaline(dataset,0.001,10,1,-1);
 % [accuracy,error_rate,sensitivity,specificity,precision]=equality_indexes(confusion_matrix_perceptron);
 % [accuracy,error_rate,sensitivity,specificity,precision]=equality_indexes(confusion_matrix_adaline);
 
@@ -22,8 +22,8 @@ dataset = dataset(index(1:size(dataset,1)),:);
 %  [T] = TaskCreator(T,2); % puts digit 2 equal to 1 and the remaining equal to -1
 %  data_set = [ X  T];
 %  data_set_reduced = data_set(1:150,:);
-% [confusion_matrix_perceptron,n_iter_perceptron] = perceptron(data_set_reduced,0.1,150,1,-1);
-% [confusion_matrix_adaline,n_iter_adaline] = adaline(data_set_reduced,0.001,150,1,-1);
+% [confusion_matrix_perceptron,n_iter_perceptron] = perceptron(data_set_reduced,0.1,2,1,-1);
+% [confusion_matrix_adaline,n_iter_adaline] = adaline(data_set_reduced,0.001,2,1,-1);
 % [accuracy,error_rate,sensitivity,specificity,precision]=equality_indexes(confusion_matrix_perceptron);
 
 %% XOR data set
