@@ -1,5 +1,8 @@
 clear all
 close all
+%% Lab 4a : Single unit neural networks
+
+% Naso Rappis Cristina, Terrile Chiara
 
 %% Task2 
 
@@ -11,8 +14,8 @@ dataset = importdata('iris.txt');
 
 index = randperm(size(dataset,1));
 dataset = dataset(index(1:size(dataset,1)),:);
-[confusion_matrix_perceptron,n_iter_perceptron] = perceptron(dataset,0.1,10,1,-1);
-[confusion_matrix_adaline,n_iter_adaline] = adaline(dataset,0.001,10,1,-1);
+[confusion_matrix_perceptron,n_iter_perceptron] = perceptron(dataset,0.1,2,1,-1);
+[confusion_matrix_adaline,n_iter_adaline] = adaline(dataset,0.001,2,1,-1);
 % [accuracy,error_rate,sensitivity,specificity,precision]=equality_indexes(confusion_matrix_perceptron);
 % [accuracy,error_rate,sensitivity,specificity,precision]=equality_indexes(confusion_matrix_adaline);
 
